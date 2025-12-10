@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>module 1 — core ideas</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .venn {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .venn svg {
+      max-width: 240px;
+      opacity: 0.9;
+    }
+    h1 { margin-bottom: 0.4em; }
+    h2 { margin-top: 1.2em; }
+    .nav-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      border: 1px solid #000;
+      padding: 4px 8px;
+      font-size: 0.85rem;
+      background: #f5f5f5;
+    }
+    .nav-links a:hover {
+      background: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>module 1 — core ideas</h1>
+<hr>
+
+<h2>1. population vs sample</h2>
+<ul>
+  <li><strong>population</strong>: everything you ultimately care about (could be huge or even hypothetical).</li>
+  <li><strong>sample</strong>: the part you actually observe.</li>
+  <li>probability assumes the population is known and asks what samples should look like.</li>
+  <li>statistics has only the sample and asks what can be inferred about the population.</li>
+</ul>
+
+<h2>2. what statistics is</h2>
+<ul>
+  <li>using data to learn something non-trivial.</li>
+  <li>“ethical” = using the method only when its assumptions actually hold.</li>
+</ul>
+
+<h2>3. why probability comes first</h2>
+<ul>
+  <li>all inference is: “if the world behaved like X, how likely is data like this?”</li>
+  <li>you need the machinery of randomness before flipping that logic around.</li>
+</ul>
+
+<h2>4. experiments, sample spaces, events</h2>
+<ul>
+  <li><strong>experiment</strong>: process that yields an observable outcome.</li>
+  <li><strong>sample space</strong> S: set of all possible outcomes.</li>
+  <li><strong>event</strong>: any subset of S.</li>
+  <li><strong>cardinality</strong>: number of elements.</li>
+</ul>
+
+<h2>5. examples</h2>
+<ul>
+  <li><strong>one coin flip</strong>: S = {0,1}. |S| = 2.</li>
+  <li><strong>two flips</strong>: S = {00,01,10,11}. |S| = 4.</li>
+  <li><strong>flip until first tail</strong>: S = {T, HT, HHT, HHHT, …} (infinite).</li>
+  <li><strong>car defects</strong> (3 binary features): total 2³ = 8 outcomes.</li>
+</ul>
+
+<h2>6. set notation</h2>
+<ul>
+  <li>A ∪ B: outcomes in A or B.</li>
+  <li>A ∩ B: outcomes in both.</li>
+  <li>Aᶜ: outcomes in S but not in A.</li>
+  <li>disjoint: A ∩ B = ∅.</li>
+</ul>
+
+<h2>7. car-defect event example</h2>
+<ul>
+  <li>A: engine problem = {100,110,101,111}</li>
+  <li>B: exactly one defect = {100,010,001}</li>
+  <li>C: exactly two defects = {110,101,011}</li>
+</ul>
+
+<p>derived:</p>
+<ul>
+  <li>A ∩ B = {100}</li>
+  <li>Aᶜ = {000,010,001}</li>
+  <li>Aᶜ ∪ B = {000,010,001,100}</li>
+  <li>B ∩ C = ∅</li>
+</ul>
+
+<h2>8. venn diagrams</h2>
+<p>pure bookkeeping; each outcome lives in exactly one region.</p>
+
+<div class="venn">
+<svg viewBox="0 0 200 120">
+  <circle cx="80" cy="60" r="45" fill="#0057ff22" stroke="#0057ff" />
+  <circle cx="120" cy="60" r="45" fill="#ff003322" stroke="#ff0033" />
+</svg>
+</div>
+
+<hr>
+
+<div class="nav-links">
+  <a href="../index.html">← index</a>
+  <a href="m2.html">next: counting with / without replacement →</a>
+</div>
+
+</body>
+</html>
