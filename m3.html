@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>module 1 — axioms & basic probability</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    h1 { margin-bottom: 0.4em; }
+    h2 { margin-top: 1.2em; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.9em;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      border: 1px solid #000;
+      padding: 4px 8px;
+      font-size: 0.85rem;
+      background: #f5f5f5;
+    }
+    .nav-links a:hover {
+      background: #e0e0e0;
+    }
+    .prob-table {
+      border-collapse: collapse;
+      margin: 10px 0 14px;
+      font-size: 0.9rem;
+      max-width: 360px;
+    }
+    .prob-table th,
+    .prob-table td {
+      border: 1px solid #000;
+      padding: 4px 6px;
+      text-align: left;
+    }
+    .prob-table th {
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+
+<h1>module 1 — axioms + basic probability</h1>
+<hr>
+
+<h2>1. goal</h2>
+<ul>
+  <li>assign a number <code>P(A)</code> to an event <code>A</code> that measures its chance of occurring.</li>
+  <li>probability theory: assumes the population model is known → computes event probabilities.</li>
+  <li>statistics: observes a sample → estimates those probabilities.</li>
+</ul>
+
+<h2>2. setup recap</h2>
+<ul>
+  <li>experiment → produces outcomes.</li>
+  <li>sample space <code>S</code> → all possible outcomes.</li>
+  <li>event <code>A ⊆ S</code>.</li>
+  <li>we want a consistent definition of <code>P(A)</code>.</li>
+</ul>
+
+<h2>3. the three axioms</h2>
+<ol>
+  <li><strong>non-negativity + boundedness</strong>: <code>0 ≤ P(A) ≤ 1</code> for any event <code>A</code>.</li>
+  <li><strong>certainty of the sample space</strong>: <code>P(S) = 1</code>.</li>
+  <li><strong>additivity for mutually exclusive events</strong>: if <code>A₁, …, Aₙ</code> are pairwise disjoint, then<br>
+    <code>P(A₁ ∪ ··· ∪ Aₙ) = P(A₁) + ··· + P(Aₙ)</code>.<br>
+    same idea extends to a countably infinite disjoint collection.
+  </li>
+</ol>
+
+<h2>4. example — flip a fair coin until first tail</h2>
+
+<p>sample space: <code>{T, HT, HHT, HHHT, …}</code></p>
+
+<p>let <code>Aₙ</code> be “tail occurs on the n-th flip”.</p>
+<p>then <code>P(Aₙ) = 1 / 2ⁿ</code>, and the <code>Aₙ</code> are mutually exclusive.</p>
+
+<p>check the axioms: the events cover the whole space and</p>
+<p style="margin-left:16px;"><code>P(S) = Σₙ₌₁^∞ (1 / 2ⁿ) = 1</code>.</p>
+
+<h3>event B: tail occurs after at least 3 flips</h3>
+<p><code>B</code> = sequences starting with at least two H before the first T.</p>
+<p>easier via the complement. <code>Bᶜ</code> = get a tail on flip 1 or 2:</p>
+<ul>
+  <li>tail on flip 1: <code>P = 1/2</code></li>
+  <li>head then tail: <code>P = (1/2)·(1/2) = 1/4</code></li>
+</ul>
+<p>disjoint, so</p>
+<p style="margin-left:16px;"><code>P(Bᶜ) = 1/2 + 1/4 = 3/4</code></p>
+<p>and</p>
+<p style="margin-left:16px;"><code>P(B) = 1 − P(Bᶜ) = 1/4</code>.</p>
+
+<h2>5. consequences of the axioms</h2>
+<ul>
+  <li><code>A ∪ Aᶜ = S</code> and <code>A ∩ Aᶜ = ∅</code> ⇒ <code>P(Aᶜ) = 1 − P(A)</code>.</li>
+  <li>if <code>A ∩ B = ∅</code> then <code>P(A ∩ B) = 0</code>.</li>
+  <li>general union formula:
+    <div style="margin-left:16px;">
+      <code>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</code>.
+    </div>
+  </li>
+</ul>
+
+<h2>6. car-defect example</h2>
+
+<p>three defect types → events <code>A, B, C</code>. given:</p>
+
+<table class="prob-table">
+  <tr>
+    <th>event</th>
+    <th>P(·)</th>
+  </tr>
+  <tr><td>A</td><td>0.20</td></tr>
+  <tr><td>B</td><td>0.25</td></tr>
+  <tr><td>C</td><td>0.30</td></tr>
+  <tr><td>A ∩ B</td><td>0.05</td></tr>
+  <tr><td>B ∩ C</td><td>0.075</td></tr>
+  <tr><td>A ∩ C</td><td>0.06</td></tr>
+  <tr><td>A ∩ B ∩ C</td><td>0.015</td></tr>
+</table>
+
+<h3>(a) probability defect 1 does not occur</h3>
+<p><code>P(Aᶜ) = 1 − P(A) = 1 − 0.2 = 0.8</code>.</p>
+
+<h3>(b) probability at least one defect</h3>
+<p>use inclusion–exclusion for three sets:</p>
+<p style="margin-left:16px;">
+  <code>P(A ∪ B ∪ C) = P(A) + P(B) + P(C)</code><br>
+  <code> − P(A ∩ B) − P(B ∩ C) − P(A ∩ C)</code><br>
+  <code> + P(A ∩ B ∩ C)</code>
+</p>
+<p>plug numbers:</p>
+<p style="margin-left:16px;">
+  <code>0.2 + 0.25 + 0.3 − 0.05 − 0.075 − 0.06 + 0.015 = 0.7</code>.
+</p>
+
+<h3>(c) probability of no defect</h3>
+<p>this is <code>(A ∪ B ∪ C)ᶜ</code>, so</p>
+<p style="margin-left:16px;"><code>P(none) = 1 − 0.7 = 0.3</code>.</p>
+
+<h3>(d) probability defects 1 and 3 occur, but not 2</h3>
+<p>this is the event <code>101</code>. take <code>A ∩ C</code> and remove cases where B also occurs:</p>
+<p style="margin-left:16px;">
+  <code>P(101) = P(A ∩ C) − P(A ∩ B ∩ C)</code><br>
+  <code>= 0.06 − 0.015 = 0.045</code>.
+</p>
+
+<hr>
+
+<div class="nav-links">
+  <a href="m2.html">← back</a>
+  <a href="../index.html">index</a>
+</div>
+
+</body>
+</html>
