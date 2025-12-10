@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>module 1 — permutations & combinations</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    h1 { margin-bottom: 0.4em; }
+    h2 { margin-top: 1.2em; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.9em;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      border: 1px solid #000;
+      padding: 4px 8px;
+      font-size: 0.85rem;
+      background: #f5f5f5;
+    }
+    .nav-links a:hover {
+      background: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>module 1 — permutations, combinations, counting, equally-likely events</h1>
+<hr>
+
+<h2>1. equally likely outcomes</h2>
+
+<p>if a finite sample space <code>S</code> has <code>N</code> simple outcomes and each has probability <code>1/N</code>, then:</p>
+
+<p style="margin-left:16px;"><code>P(A) = |A| / N</code></p>
+
+<p>example: roll a fair die twice → 36 ordered pairs.</p>
+<ul>
+  <li>event “first roll is 1”: 6 outcomes → <code>6/36 = 1/6</code></li>
+  <li>event “sum is 8”: 5 outcomes → <code>5/36</code></li>
+  <li>event “second roll = first roll + 2”: 4 outcomes → <code>4/36 = 1/9</code></li>
+</ul>
+
+<h2>2. permutations (order matters)</h2>
+
+<p>choosing ordered <code>k</code>-tuples from <code>n</code> distinct objects:</p>
+
+<p style="margin-left:16px;"><code>P_{k,n} = n (n−1)(n−2)…(n−k+1) = n! / (n−k)!</code></p>
+
+<p>example: president / VP / treasurer from 60 people:</p>
+
+<p style="margin-left:16px;"><code>P_{3,60} = 60·59·58 = 60!/57! = 205,320</code></p>
+
+<h2>3. combinations (order does not matter)</h2>
+
+<p>unordered selection of size <code>k</code> from <code>n</code>:</p>
+
+<p style="margin-left:16px;"><code>C(n, k) = n! / (k! (n−k)!)</code></p>
+
+<p>motivation: each unordered group corresponds to <code>k!</code> permutations, so dividing collapses reorderings.</p>
+
+<p>example: choose any 3-person team from 60:</p>
+
+<p style="margin-left:16px;"><code>C(60, 3) = 60! / (3!·57!)</code></p>
+
+<p>symmetry: <code>C(n, k) = C(n, n−k)</code></p>
+
+<h2>4. committee example (mixed groups)</h2>
+
+<p>60 people: 35 women, 25 men. select an 11-person committee.</p>
+
+<p>sample space size:</p>
+<p style="margin-left:16px;"><code>C(60, 11)</code></p>
+
+<p><strong>probability committee has at least 5 men AND at least 5 women</strong>:</p>
+
+<p>only two valid splits: (5 men, 6 women) and (6 men, 5 women).</p>
+
+<p style="margin-left:16px;">
+<code>
+P =
+  [ C(25,5) C(35,6) / C(60,11) ]
+  +
+  [ C(25,6) C(35,5) / C(60,11) ]
+</code>
+</p>
+
+<h2>5. bus-inspection example</h2>
+
+<p>20 buses → 8 cracked, 12 uncracked. sample 5 at random.</p>
+
+<p>sample space:</p>
+<p style="margin-left:16px;"><code>C(20, 5)</code></p>
+
+<h3>probability exactly 4 have cracks</h3>
+
+<p style="margin-left:16px;">
+<code>[ C(8,4) C(12,1) ] / C(20,5)</code>
+</p>
+
+<h3>probability at least 4 have cracks</h3>
+
+<p style="margin-left:16px;">
+<code>
+[ C(8,4) C(12,1) ] / C(20,5)
++
+[ C(8,5) C(12,0) ] / C(20,5)
+</code>
+</p>
+
+<hr>
+
+<div class="nav-links">
+  <a href="m3.html">← back</a>
+  <a href="../index.html"> index </a>
+  <a href="m5.html">next →</a>
+</div>
+
+</body>
+</html>
