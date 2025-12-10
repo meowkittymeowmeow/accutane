@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>module 1 — counting</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    h1 { margin-bottom: 0.4em; }
+    h2 { margin-top: 1.2em; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.9em;
+    }
+    .count-chart {
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 0.9rem;
+      width: 100%;
+      max-width: 520px;
+    }
+    .count-chart th,
+    .count-chart td {
+      border: 1px solid #000;
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+    .count-chart th {
+      background: #f5f5f5;
+      text-align: left;
+    }
+    .count-chart caption {
+      text-align: left;
+      margin-bottom: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      border: 1px solid #000;
+      padding: 4px 8px;
+      font-size: 0.85rem;
+      background: #f5f5f5;
+    }
+    .nav-links a:hover {
+      background: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>module 1 — counting</h1>
+<hr>
+
+<p>setup: you have <strong>n distinct options</strong> (e.g. n balls, n students, n symbols) and you choose <strong>k positions</strong> (e.g. 3 draws, 4 seats, 2 slots in a code).</p>
+<p>two binary choices:</p>
+<ul>
+  <li><strong>ordered vs unordered</strong>: does <code>AB</code> differ from <code>BA</code>?</li>
+  <li><strong>with vs without replacement</strong>: can you reuse the same option more than once?</li>
+</ul>
+
+<h2>1. ordered, with replacement → n<sup>k</sup></h2>
+<p>each position is filled independently, you can reuse the same item.</p>
+<ul>
+  <li>slot 1: n choices</li>
+  <li>slot 2: n choices</li>
+  <li>…</li>
+  <li>slot k: n choices</li>
+</ul>
+<p>by multiplication: total = n × n × … × n (k times) = <strong>n<sup>k</sup></strong>.</p>
+<p><em>example</em>: 10-digit code, digits 0–9 allowed each time → 10<sup>10</sup> possibilities.</p>
+
+<h2>2. ordered, without replacement → n! / (n − k)!</h2>
+<p>now once you use an item, it’s gone.</p>
+<ul>
+  <li>slot 1: n choices</li>
+  <li>slot 2: n − 1 choices</li>
+  <li>slot 3: n − 2 choices</li>
+  <li>…</li>
+  <li>slot k: n − k + 1 choices</li>
+</ul>
+<p>total = n × (n − 1) × … × (n − k + 1) = <strong>n! / (n − k)!</strong> (a k-permutation of n).</p>
+<p><em>example</em>: 5 students, choose a president, VP, and treasurer → 5 × 4 × 3 = 60.</p>
+
+<h2>3. unordered, without replacement → C(n, k)</h2>
+<p>you only care which items are chosen, not their order. every group of k items is a “committee”.</p>
+<p>start from the ordered-without count (permutations) and then collapse all k! reorderings into one:</p>
+<ul>
+  <li>ordered, without replacement: n! / (n − k)!</li>
+  <li>each unordered set corresponds to k! orderings</li>
+</ul>
+<p>so number of distinct groups =</p>
+<p style="margin-left:16px;"><strong>C(n, k) = n! / (k! (n − k)!)</strong>.</p>
+<p><em>example</em>: 5 students, choose any 3 to be on a committee, all equal → C(5, 3) = 10.</p>
+
+<h2>4. unordered, with replacement → C(n + k − 1, k)</h2>
+<p>you pick k items, allowed to reuse, and only the multiset matters (counts of each option).</p>
+<p>classic “stars and bars” result: number of ways to distribute k identical balls into n distinct boxes =</p>
+<p style="margin-left:16px;"><strong>C(n + k − 1, k)</strong>.</p>
+<p>interpretation: you’re choosing where to place k stars and (n − 1) dividers on a line; positions chosen for stars determine the multiset.</p>
+
+<h2>summary chart</h2>
+
+<table class="count-chart">
+  <caption>choosing k items from n options</caption>
+  <tr>
+    <th></th>
+    <th>with replacement</th>
+    <th>without replacement</th>
+  </tr>
+  <tr>
+    <th>ordered</th>
+    <td>
+      n choices each time<br>
+      → <strong>n<sup>k</sup></strong>
+    </td>
+    <td>
+      no reuse, order matters<br>
+      → <strong>n! / (n − k)!</strong>
+    </td>
+  </tr>
+  <tr>
+    <th>unordered</th>
+    <td>
+      multiset of size k<br>
+      → <strong>C(n + k − 1, k)</strong>
+    </td>
+    <td>
+      subset of size k<br>
+      → <strong>C(n, k)</strong>
+    </td>
+  </tr>
+</table>
+
+<p>mentally: start in the top-left (ordered, with replacement = n<sup>k</sup>) and then:</p>
+<ul>
+  <li>“remove replacement” = options shrink each draw → n! / (n − k)!</li>
+  <li>“remove order” = divide by k! (collapse permutations) → C(…)</li>
+</ul>
+
+<hr>
+
+<div class="nav-links">
+  <a href="m1.html">← back</a>
+  <a href="../index.html">index</a>
+</div>
+
+</body>
+</html>
